@@ -1,0 +1,37 @@
+language: java
+
+jdk:
+  - openjdk8
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+
+before_install:
+
+script:
+  - mvn clean package -DskipTests=true
+  ## Codecov CI
+  - mvn cobertura:cobertura
+
+after_success:
+  ## Codecov CI
+  - bash <(curl -s https://codecov.io/bash)
+  - cd ./target
+  - git init
+  - git config user.name "Starrier"
+  - git config user.email "starrier@starrier.com"
+  - git add .
+  - git commit -m "travis-ci"
+  - git push --force --quiet "https://${GITHUB_TOKEN}@${GH_REF}" master:master
+
+## 指定需要进行集成的代码分支
+
+branches:
+  only:
+    - master
+
+## 环境配置，可以设置在  travis-ci 的界面中，作为环境变量植入
+env:
+  global:
+    - GH_REF=https://github.com/Starrier/imperator-order.git
