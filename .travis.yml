@@ -34,4 +34,4 @@ branches:
 ## 环境配置，可以设置在  travis-ci 的界面中，作为环境变量植入
 env:
   global:
-    - GH_REF=https://github.com/Starrier/imperator-order.git
+    - GH_REF=https://github.com/ricehgQ/imperator-order.git
